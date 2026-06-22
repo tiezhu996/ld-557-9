@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CurrentUser } from '../../types/request';
 import { CreateHoldingDto } from './dto/create-holding.dto';
 import { MarketService } from '../market/market.service';
@@ -23,6 +23,7 @@ export class HoldingsService {
 
   constructor(
     private readonly marketService: MarketService,
+    @Inject(forwardRef(() => PortfoliosService))
     private readonly portfoliosService: PortfoliosService,
   ) {}
 

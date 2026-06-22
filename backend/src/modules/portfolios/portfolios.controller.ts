@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUserDecorator } from '../../common/decorators/current-user.decorator';
 import { CurrentUser } from '../../types/request';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ComparePortfoliosDto } from './dto/compare-portfolios.dto';
 import { CreatePortfolioDto } from './dto/create-portfolio.dto';
 import { UpdatePortfolioDto } from './dto/update-portfolio.dto';
 import { PortfoliosService } from './portfolios.service';
@@ -42,6 +43,11 @@ export class PortfoliosController {
   @Get(':id/performance')
   performance(@Param('id', ParseIntPipe) id: number, @CurrentUserDecorator() user: CurrentUser) {
     return this.portfoliosService.performance(id, user);
+  }
+
+  @Post('compare')
+  compare(@Body() dto: ComparePortfoliosDto, @CurrentUserDecorator() user: CurrentUser) {
+    return this.portfoliosService.compare(dto, user);
   }
 }
 
